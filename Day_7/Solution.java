@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+// answer: 1667443, 8998590
+
 public class Solution {
     public static void main(String[] args) throws Exception {
 
