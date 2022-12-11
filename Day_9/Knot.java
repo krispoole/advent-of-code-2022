@@ -8,8 +8,9 @@ public class Knot {
     private boolean[] currentlyOccupiedByTailArray = new boolean[9];
     private int row;
     private int col;
+    private String[] occupiedArray;
 
-    public Knot() {
+    public Knot(int row, int col) {
         this.row = 0;
         this.col = 0;
         this.occupiedByHead = false;
@@ -64,8 +65,18 @@ public class Knot {
     public void setCurrentlyOccupiedByTailArray(int position, boolean value) {
         this.getCurrentlyOccupiedByTailArray()[position] = value;
     }
-    
 
+    public void setCurrentlyOccupiedByTailArray(boolean[] currentlyOccupiedByTailArray) {
+        this.currentlyOccupiedByTailArray = currentlyOccupiedByTailArray;
+    }
+
+    public String[] getOccupiedArray() {
+        return occupiedArray;
+    }
+
+    public void setOccupiedArray(String[] occupiedArray) {
+        this.occupiedArray = occupiedArray;
+    }
     
     
 }

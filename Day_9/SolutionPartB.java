@@ -6,31 +6,28 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class SolutionPartB {
     
     public static void main(String[] args) throws IOException {
 
-        File stackFile = new File("Day_9/dataTestB.txt");
+        File stackFile = new File("Day_9/data.txt");
         BufferedReader br = new BufferedReader(new FileReader(stackFile));
 
         String eachLine;
 
         ArrayList<Knot> knotList = new ArrayList<Knot>();
 
-        // Create the starting position
-        Knot startingPosition = new Knot();
-        startingPosition.setOccupiedByHead(true);
-        startingPosition.setOccupiedByTail(true);
-        startingPosition.setWasVisitedByTail(true);
-        
-        boolean[] currentlyOccupiedByTail = new boolean[9];
-
-        for (int i = 0; i < 9; i++) {
-            currentlyOccupiedByTail[i] = true;
+        for (int i = 0; i < 10; i++) {
+            knotList.add(new Knot(0, 0));
         }
 
-        knotList.add(startingPosition);
+        String startingPosition = "0,0";
+        String[] occupiedArray = new String[1];
+        occupiedArray[0] = startingPosition;
+        knotList.get(9).setOccupiedArray(occupiedArray);
+
 
         while ((eachLine = br.readLine()) != null) {
 
@@ -38,258 +35,147 @@ public class SolutionPartB {
             String direction = splitLine[0];
             int steps = Integer.parseInt(splitLine[1]);
 
-            Knot currentHeadKnot = new Knot();
-            Knot currentTailKnot = new Knot();
+            for (int i = 0; i < steps ; i++) {
 
-            currentHeadKnot = figureOutCurrentHeadPosition(knotList);
-            currentTailKnot = figureOutCurrentTailPosition(knotList, 0);
+                // move head
+                Knot headKnot = knotList.get(0);
+                headKnot = setNewHeadKnot(headKnot, direction);
+                knotList.set(0, headKnot);
 
-            for (int i = 0; i < steps; i++) {
+                for (int j = 1; j < 10; j++) {
 
-                Knot newHeadKnot = new Knot();
-                Knot newTailKnot = new Knot();
+                    // move tail
+                    Knot tailKnot = knotList.get(j);
+                    headKnot = knotList.get(j - 1);
 
-                // Set new head and tail knot positions
-                newHeadKnot = setNewHeadKnot(currentHeadKnot, direction);
-                newTailKnot = setNewTailKnot(newHeadKnot, currentTailKnot, direction);
-
-                // add new head and tail knot to knotList if not already in it
-                if (checkIfKnotIsInKnottList(newHeadKnot, knotList) == false) {
-                    knotList.add(newHeadKnot);
-                }
-                if (checkIfKnotIsInKnottList(newTailKnot, knotList) == false) {
-                    knotList.add(newTailKnot);
+                    tailKnot = setTailKnot(tailKnot, headKnot);
                 }
 
-                // Set updates in knotList
-                knotList = updateHeadKnotList(knotList, newHeadKnot);
-                knotList = updateTailKnotList(knotList, newTailKnot, 0);
+                String[] tempList = knotList.get(9).getOccupiedArray();
+                String tempTailString = knotList.get(9).getCol() + "," + knotList.get(9).getRow();
+                
+                boolean arrayCheck = false;
 
-                Knot savedHeadKnot = newHeadKnot;
-                Knot savedTailKnot = newTailKnot;
-
-                for (int j = 1; j < 9; j++) {
-
-                    // last tail from this iteration
-                    newHeadKnot = figureOutCurrentTailPosition(knotList, (j - 1));
-
-                    direction = figureOutDirection(newHeadKnot, currentTailKnot);
-
-                    // current tail from this iteration
-                    currentTailKnot = figureOutCurrentTailPosition(knotList, j);
-
-
-                    // Set new head and tail knot positions
-                    newTailKnot = setNewTailKnot(newHeadKnot, currentTailKnot, direction);
-
-                    if (checkIfKnotIsInKnottList(newTailKnot, knotList) == false) {
-                        knotList.add(newTailKnot);
+                for (int k = 0; k < tempList.length; k++) {
+                    if (tempList[k].equals(tempTailString)) {
+                        arrayCheck = true;
                     }
-
-                    // Set updates in knotList
-                    knotList = updateTailKnotList(knotList, newTailKnot, j);
-
                 }
 
-                // update knot positions
+                if (arrayCheck == false) {
+                    String[] tempArray = new String[tempList.length + 1];
+                    for (int k = 0; k < tempList.length; k++) {
+                        tempArray[k] = tempList[k];
+                    }
+                    tempArray[tempList.length] = tempTailString;
+                    knotList.get(9).setOccupiedArray(tempArray);
+                }
 
-                currentHeadKnot = savedHeadKnot;
-                currentTailKnot = savedTailKnot;
 
-            }
-                                    
-        }
-
-        for (Knot knot : knotList) {
-            System.out.println(knot.getRow() + " " + knot.getCol() + " " + knot.isOccupiedByHead() +" " + knot.getCurrentlyOccupiedByTailArray()[0] + " " + knot.getCurrentlyOccupiedByTailArray()[1] + " " + knot.getCurrentlyOccupiedByTailArray()[2] + " " + knot.getCurrentlyOccupiedByTailArray()[3] + " " + knot.getCurrentlyOccupiedByTailArray()[4] + " " + knot.getCurrentlyOccupiedByTailArray()[5] + " " + knot.getCurrentlyOccupiedByTailArray()[6] + " " + knot.getCurrentlyOccupiedByTailArray()[7] + " " + knot.getCurrentlyOccupiedByTailArray()[8]);
-        }
-
-        int tailCounter = 0;
-
-        for (Knot knot : knotList) {
-            if (knot.isWasVisitedByTail() == true) {
-                tailCounter++;  
             }
         }
 
-        System.out.println(tailCounter);
+        int counter = 0;
 
-    }
-
-    private static String figureOutDirection(Knot newHeadKnot, Knot currentTailKnot) {
-        String direction = "";
-
-        if (newHeadKnot.getRow() > currentTailKnot.getRow()) {
-            direction = "U";
-        } else if (newHeadKnot.getRow() < currentTailKnot.getRow()) {
-            direction = "D";
-        } else if (newHeadKnot.getCol() > currentTailKnot.getCol()) {
-            direction = "L";
-        } else if (newHeadKnot.getCol() < currentTailKnot.getCol()) {
-            direction = "R";
+        for (int i = 0; i < knotList.get(9).getOccupiedArray().length; i++) {
+            counter++;
         }
 
-        return direction;
+        System.out.println("Answer: " + counter);
+
     }
 
-    private static ArrayList<Knot> updateHeadKnotList(ArrayList<Knot> knotList, Knot newHeadKnot) {
-        for (Knot knot : knotList) {
-            if (knot.getRow() == newHeadKnot.getRow() && knot.getCol() == newHeadKnot.getCol()) {
-                knot.setOccupiedByHead(true);
-            } else {
-                knot.setOccupiedByHead(false);
+    private static Knot setTailKnot(Knot tailKnot, Knot headKnot) {
+
+        int headCol = headKnot.getCol();
+        int headRow = headKnot.getRow();
+        int tailCol = tailKnot.getCol();
+        int tailRow = tailKnot.getRow();
+
+        if (headCol - tailCol == 2) {
+            if (headRow == tailRow) {
+                tailKnot.setCol(tailCol + 1);
+            } else if (headRow - tailRow > 0) {
+                tailKnot.setCol(tailCol + 1);
+                tailKnot.setRow(tailRow + 1);
+            } else if (tailRow - headRow > 0) {
+                tailKnot.setCol(tailCol + 1);
+                tailKnot.setRow(tailRow - 1);
             }
         }
-        return knotList;
-    }
-
-    private static ArrayList<Knot> updateTailKnotList(ArrayList<Knot> knotList, Knot newTailKnot, int arrayPosition) {
-        for (Knot knot : knotList) {
-            if (knot.getRow() == newTailKnot.getRow() && knot.getCol() == newTailKnot.getCol()) {
-                knot.setCurrentlyOccupiedByTailArray(arrayPosition, true);
-            } else {
-                knot.setCurrentlyOccupiedByTailArray(arrayPosition, false);
+       else if (headRow - tailRow == 2) {
+            if (headCol == tailCol) {
+                tailKnot.setRow(tailRow + 1);
+            } else if (headCol - tailCol > 0) {
+                tailKnot.setCol(tailCol + 1);
+                tailKnot.setRow(tailRow + 1);
+            } else if (tailCol - headCol > 0) {
+                tailKnot.setCol(tailCol - 1);
+                tailKnot.setRow(tailRow + 1);
+            }
+       }
+       else if (tailCol - headCol == 2) {
+            if (headRow == tailRow) {
+                tailKnot.setCol(tailCol - 1);
+            } else if (tailRow - headRow > 0) {
+                tailKnot.setCol(tailCol - 1);
+                tailKnot.setRow(tailRow - 1);
+            } else if (headRow - tailRow > 0) {
+                tailKnot.setCol(tailCol - 1);
+                tailKnot.setRow(tailRow + 1);
             }
         }
-        return knotList;
-    }
+        else if (tailRow - headRow == 2) {
+            if (headCol == tailCol) {
+                tailKnot.setRow(tailRow - 1);
+            } else if (tailCol - headCol > 0) {
+                tailKnot.setCol(tailCol - 1);
+                tailKnot.setRow(tailRow - 1);
+            } else if (headCol - tailCol > 0) {
+                tailKnot.setCol(tailCol + 1);
+                tailKnot.setRow(tailRow - 1);
+            }
+        }
 
-    private static Knot setNewHeadKnot(Knot currentHeadKnot, String direction) {
-        Knot newHeadKnot = new Knot();
+        return tailKnot;
+    }
+    private static boolean checkIfKnotIsInTailList(Knot tailKnot, ArrayList<Knot> tailVisited) {
+
+        boolean knotIsInList = false; 
+
+        for (int i = 0; i < tailVisited.size(); i++) {
+            if (tailKnot.getRow() == tailVisited.get(i).getRow() && tailKnot.getCol() == tailVisited.get(i).getCol()) {
+                knotIsInList = true;
+            }
+        }
+
+        return knotIsInList;
+    }
+    private static Knot setNewHeadKnot(Knot headKnot, String direction) {
+
+        Knot newHeadKnot = headKnot;
 
         switch (direction) {
             case "U":
-                newHeadKnot.setRow(currentHeadKnot.getRow() + 1);
-                newHeadKnot.setCol(currentHeadKnot.getCol());
-                newHeadKnot.setOccupiedByHead(true);
+                newHeadKnot.setRow(headKnot.getRow() + 1);
+                newHeadKnot.setCol(headKnot.getCol());
                 break;
             case "D":
-                newHeadKnot.setRow(currentHeadKnot.getRow() - 1);
-                newHeadKnot.setCol(currentHeadKnot.getCol());
-                newHeadKnot.setOccupiedByHead(true);
+                newHeadKnot.setRow(headKnot.getRow() - 1);
+                newHeadKnot.setCol(headKnot.getCol());
                 break;
             case "L":
-                newHeadKnot.setRow(currentHeadKnot.getRow());
-                newHeadKnot.setCol(currentHeadKnot.getCol() - 1);
-                newHeadKnot.setOccupiedByHead(true);
+                newHeadKnot.setRow(headKnot.getRow());
+                newHeadKnot.setCol(headKnot.getCol() - 1);
                 break;
             case "R":
-                newHeadKnot.setRow(currentHeadKnot.getRow());
-                newHeadKnot.setCol(currentHeadKnot.getCol() + 1);
-                newHeadKnot.setOccupiedByHead(true);
+                newHeadKnot.setRow(headKnot.getRow());
+                newHeadKnot.setCol(headKnot.getCol() + 1);
                 break;
             default:
-                newHeadKnot = currentHeadKnot;
                 break;
         }
 
         return newHeadKnot;
-    }
-
-    private static Knot setNewTailKnot(Knot newHeadKnot, Knot currentTailKnot, String direction) {
-        
-        Knot newTailKnot = new Knot();
-
-        switch(direction) {
-            case "U":
-                // if newHeadKnotgetRow is 2 greater than currentTailKnotRow, then set newTailKnotRow to currentTailKnotRow + 1
-                if (newHeadKnot.getRow() - currentTailKnot.getRow() == 2 && newHeadKnot.getCol() == currentTailKnot.getCol()) {
-                    newTailKnot.setRow(currentTailKnot.getRow() + 1);
-                    newTailKnot.setCol(currentTailKnot.getCol());
-                } 
-                else if (newHeadKnot.getRow() - currentTailKnot.getRow() == 2 && newHeadKnot.getCol() != currentTailKnot.getCol()) {
-                    newTailKnot.setRow(currentTailKnot.getRow() + 1);
-                    newTailKnot.setCol(newHeadKnot.getCol());
-                }
-                else {
-                    newTailKnot = currentTailKnot;
-                }
-                break;
-            case "D":
-                if (currentTailKnot.getRow() - newHeadKnot.getRow() == 2 && newHeadKnot.getCol() == currentTailKnot.getCol()) {
-                    newTailKnot.setRow(currentTailKnot.getRow() - 1);
-                    newTailKnot.setCol(currentTailKnot.getCol());
-                } 
-                else if (currentTailKnot.getRow() - newHeadKnot.getRow() == 2 && newHeadKnot.getCol() != currentTailKnot.getCol()) {
-                    newTailKnot.setRow(currentTailKnot.getRow() - 1);
-                    newTailKnot.setCol(newHeadKnot.getCol());
-                } 
-                else {
-                    newTailKnot = currentTailKnot;
-                }
-                break;
-            case "L":
-                if (currentTailKnot.getCol() - newHeadKnot.getCol() == 2 && newHeadKnot.getRow() == currentTailKnot.getRow()) {
-                    newTailKnot.setRow(currentTailKnot.getRow());
-                    newTailKnot.setCol(currentTailKnot.getCol() - 1);
-                } 
-                else if (currentTailKnot.getCol() - newHeadKnot.getCol() == 2 && newHeadKnot.getRow() != currentTailKnot.getRow()) {
-                    newTailKnot.setRow(newHeadKnot.getRow());
-                    newTailKnot.setCol(currentTailKnot.getCol() - 1);
-                }
-                else {
-                    newTailKnot = currentTailKnot;
-                }
-                break;
-            case "R":
-                if (newHeadKnot.getCol() - currentTailKnot.getCol() == 2 && newHeadKnot.getRow() == currentTailKnot.getRow()) {
-                    newTailKnot.setRow(currentTailKnot.getRow());
-                    newTailKnot.setCol(currentTailKnot.getCol() + 1);
-                } 
-                else if (newHeadKnot.getCol() - currentTailKnot.getCol() == 2 && newHeadKnot.getRow() != currentTailKnot.getRow()) {
-                    newTailKnot.setRow(newHeadKnot.getRow());
-                    newTailKnot.setCol(currentTailKnot.getCol() + 1);
-                }
-                else {
-                    newTailKnot = currentTailKnot;
-                }
-                break;
-            default:
-                newTailKnot = currentTailKnot;
-                break;
-        }
-
-        newTailKnot.setOccupiedByTail(true);
-        newTailKnot.setWasVisitedByTail(true);
-
-        return newTailKnot;
-    }
-
-    private static boolean checkIfKnotIsInKnottList(Knot newHeadKnot, ArrayList<Knot> knotList) {
-        boolean knotIsInList = false;
-        for (int i = 0; i < knotList.size(); i++) {
-            if (newHeadKnot.getRow() == knotList.get(i).getRow() && newHeadKnot.getCol() == knotList.get(i).getCol()) {
-                knotIsInList = true;
-            }
-        }
-        return knotIsInList;
-    }
-
-    private static Knot figureOutCurrentHeadPosition(ArrayList<Knot> knotList) {
-
-        Knot currentHeadPosition = new Knot();
-
-        for (int i = 0; i < knotList.size(); i++) {
-            if (knotList.get(i).isOccupiedByHead() == true) {
-                currentHeadPosition = knotList.get(i);
-            }
-        }
-
-        return currentHeadPosition;
-    }
-
-    private static Knot figureOutCurrentTailPosition(ArrayList<Knot> knotList, int occupiedPosition) {
-
-        Knot currentTailPosition = new Knot();
-
-        for (Knot knot : knotList) {
-            for (int j = 0; j < 9; j++) {
-                if (knot.getCurrentlyOccupiedByTailArray()[j] == true) {
-                    currentTailPosition = knot;
-                }
-            }
-        }
-        
-        return currentTailPosition;
     }
 }
