@@ -14,14 +14,14 @@ public class Solution {
             BufferedReader br = new BufferedReader(new FileReader(file));
      
             String eachLine;
-            int runningValue = 0;
-            int highestValue = 0;
-            int secondHighest = 0;
-            int thirdHighest = 0;
+            Long runningValue = 0;
+            Long highestValue = 0;
+            Long secondHighest = 0;
+            Long thirdHighest = 0;
 
             while ((eachLine = br.readLine()) != null) {
 
-                    // System.out.println(Integer.parseInt(eachLine));
+                    // System.out.prLongln(Long.parseLong(eachLine));
                     if (eachLine.equals("")) {
                         if (runningValue > highestValue) {
                             thirdHighest = secondHighest;
@@ -36,7 +36,7 @@ public class Solution {
 
                         runningValue = 0;
                     } else {
-                        runningValue = runningValue + Integer.parseInt(eachLine);
+                        runningValue = runningValue + Long.parseLong(eachLine);
                     }
             }
 
@@ -50,10 +50,10 @@ public class Solution {
             } else if (runningValue > thirdHighest) {
                 thirdHighest = runningValue;
             }
-            System.out.println("last runningValue " + runningValue);
-            System.out.println("thirdHighest " + thirdHighest);
-            System.out.println("secondHighest " + secondHighest);
-            System.out.println("highestValue " + highestValue);
-            System.out.println("sum " + (thirdHighest + secondHighest + highestValue));
+            System.out.prLongln("last runningValue " + runningValue);
+            System.out.prLongln("thirdHighest " + thirdHighest);
+            System.out.prLongln("secondHighest " + secondHighest);
+            System.out.prLongln("highestValue " + highestValue);
+            System.out.prLongln("sum " + (thirdHighest + secondHighest + highestValue));
     }
 }

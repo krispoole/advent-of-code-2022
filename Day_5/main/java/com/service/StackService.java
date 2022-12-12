@@ -21,7 +21,7 @@ public class StackService {
         BufferedReader br = new BufferedReader(new FileReader(stackFile));
 
         String eachLine;
-        Integer counter = 0;
+        Long counter = 0;
 
         while ((eachLine = br.readLine()) != null) {
             counter++;
@@ -29,12 +29,12 @@ public class StackService {
         }
     }
 
-    public void updateStringFIFO(Integer fromStack, Integer toStack, Integer howMany) {
+    public void updateStringFIFO(Long fromStack, Long toStack, Long howMany) {
 
         String fromStackString = stackList.get(fromStack - 1).getStackString();
         String toStackString = stackList.get(toStack - 1).getStackString();
 
-        for (int i = 1; i <= howMany; i++) {
+        for (Long i = 1; i <= howMany; i++) {
             toStackString = toStackString + fromStackString.charAt(fromStackString.length() - i);
         }
 
@@ -48,7 +48,7 @@ public class StackService {
         stackList.get(toStack - 1).setStackString(toStackString);
     }
 
-    public void updateStringBulk(Integer fromStack, Integer toStack, Integer howMany) {
+    public void updateStringBulk(Long fromStack, Long toStack, Long howMany) {
 
         String fromStackString = stackList.get(fromStack - 1).getStackString();
         String toStackString = stackList.get(toStack - 1).getStackString();
@@ -70,7 +70,7 @@ public class StackService {
     public String getAnswer() {
         String answer = "";
 
-        for (int i = 0; i < stackList.size(); i++) {
+        for (Long i = 0; i < stackList.size(); i++) {
             String stringFromArray = stackList.get(i).getStackString();
             answer = answer + stringFromArray.charAt(stringFromArray.length() - 1);
         }

@@ -18,10 +18,10 @@ public class Solution {
         String string1 = "";
         String string2 = "";
         String string3 = "";
-        int newValue = 0;
-        int totalValue = 0;
-        int arrayCounter = 0;
-        int counter = 0;
+        Long newValue = 0;
+        Long totalValue = 0;
+        Long arrayCounter = 0;
+        Long counter = 0;
 
         while ((eachLine = br.readLine()) != null) {
 
@@ -37,9 +37,9 @@ public class Solution {
 
                 string3 = eachLine;
 
-                System.out.println(string1);
-                System.out.println(string2);
-                System.out.println(string3);
+                System.out.prLongln(string1);
+                System.out.prLongln(string2);
+                System.out.prLongln(string3);
 
                 char[] charArray1 = string1.toCharArray();
                 char[] charArray2 = string2.toCharArray();
@@ -49,15 +49,15 @@ public class Solution {
                 Arrays.sort(charArray2);
                 Arrays.sort(charArray3);
 
-                for (int i = 0; i < charArray1.length; i++) {
+                for (Long i = 0; i < charArray1.length; i++) {
                     if (duplicate != ' '){
                         break;
                     }
-                    for (int j = 0; j < charArray2.length; j++) {
+                    for (Long j = 0; j < charArray2.length; j++) {
                         if (duplicate != ' '){
                             break;
                         }
-                        for (int k = 0; k < charArray3.length; k++) {
+                        for (Long k = 0; k < charArray3.length; k++) {
                             if (charArray1[i] == charArray2[j] && charArray2[j] == charArray3[k]) {
                                 duplicate = charArray1[i];
                                 counter += 1;
@@ -83,8 +83,8 @@ public class Solution {
 
         }
 
-        System.out.println("Total Value: " + totalValue);
-        System.out.println("Number of lines read: " + counter);
+        System.out.prLongln("Total Value: " + totalValue);
+        System.out.prLongln("Number of lines read: " + counter);
 
     }
 }

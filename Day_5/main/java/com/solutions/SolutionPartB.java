@@ -25,14 +25,14 @@ public class SolutionPartB {
 
             String[] eachLineArray = eachLine.split(" ");
 
-            Integer fromStack = Integer.parseInt(eachLineArray[3]);
-            Integer toStack = Integer.parseInt(eachLineArray[5]);
-            Integer howMany = Integer.parseInt(eachLineArray[1]);
+            Long fromStack = Long.parseLong(eachLineArray[3]);
+            Long toStack = Long.parseLong(eachLineArray[5]);
+            Long howMany = Long.parseLong(eachLineArray[1]);
 
             stackService.updateStringBulk(fromStack, toStack, howMany);
 
         }
         
-        System.out.println(stackService.getAnswer());
+        System.out.prLongln(stackService.getAnswer());
     }
 }

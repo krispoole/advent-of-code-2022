@@ -15,8 +15,8 @@ public class Solution {
         BufferedReader br = new BufferedReader(new FileReader(stackFile));
 
         String eachLine;
-        int columnCounter = 0;
-        int rowCounter = 0;
+        Long columnCounter = 0;
+        Long rowCounter = 0;
 
         while ((eachLine = br.readLine()) != null) {
 
@@ -28,7 +28,7 @@ public class Solution {
             rowCounter++;
         }
 
-        Integer[][] treeMatrix = new Integer[rowCounter][columnCounter];
+        Long[][] treeMatrix = new Long[rowCounter][columnCounter];
         rowCounter = 0;
 
         stackFile = new File("C:\\Users\\krisp\\Code\\advent-of-code-2022\\Day_8\\data.txt");
@@ -36,34 +36,34 @@ public class Solution {
         br = new BufferedReader(new FileReader(stackFile));
 
         while ((eachLine = br.readLine()) != null) {
-            Integer[] newRow = new Integer[columnCounter];
+            Long[] newRow = new Long[columnCounter];
 
-            for (int i = 0; i < eachLine.length(); i++) {
+            for (Long i = 0; i < eachLine.length(); i++) {
                 if (eachLine.charAt(i) != ' ') {
-                    newRow[i] = Integer.parseInt(String.valueOf(eachLine.charAt(i)));
+                    newRow[i] = Long.parseLong(String.valueOf(eachLine.charAt(i)));
                 }
             }
             treeMatrix[rowCounter] = newRow;
             rowCounter++;
         }
 
-        Integer visibleCounter = 0;
+        Long visibleCounter = 0;
         visibleCounter += rowCounter * 2;
         visibleCounter += (columnCounter - 2) * 2;
 
-        for (int i = 1; i < treeMatrix.length - 1; i++) {
-            for (int j = 1; j < treeMatrix[i].length - 1; j++) {
+        for (Long i = 1; i < treeMatrix.length - 1; i++) {
+            for (Long j = 1; j < treeMatrix[i].length - 1; j++) {
                 
-                int currentTreeLeftVisibility = 1;
-                int currentTreeRightVisibility = 1;
-                int currentTreeTopVisibility = 1;
-                int currentTreeBottomVisibility = 1;
+                Long currentTreeLeftVisibility = 1;
+                Long currentTreeRightVisibility = 1;
+                Long currentTreeTopVisibility = 1;
+                Long currentTreeBottomVisibility = 1;
  
-                int targetTreeRow = i;
-                int targetTreeColumn = j;
+                Long targetTreeRow = i;
+                Long targetTreeColumn = j;
 
                 // Search to the left
-                for (int k = 0; k < targetTreeColumn; k++) {
+                for (Long k = 0; k < targetTreeColumn; k++) {
                     if (treeMatrix[targetTreeRow][k] >= treeMatrix[targetTreeRow][targetTreeColumn]) {
                         currentTreeLeftVisibility = 0;
                         break;
@@ -72,7 +72,7 @@ public class Solution {
                 }
 
                 // Search to the right
-                for (int k = targetTreeColumn + 1; k < treeMatrix.length; k++) {
+                for (Long k = targetTreeColumn + 1; k < treeMatrix.length; k++) {
                     if (treeMatrix[targetTreeRow][k] >= treeMatrix[targetTreeRow][targetTreeColumn]) {
                         currentTreeRightVisibility = 0;
                         break;
@@ -80,7 +80,7 @@ public class Solution {
                 }
 
                 // Search to the top
-                for (int k = targetTreeRow - 1; k >= 0; k--) {
+                for (Long k = targetTreeRow - 1; k >= 0; k--) {
                     if (treeMatrix[k][targetTreeColumn] >= treeMatrix[targetTreeRow][targetTreeColumn]) {
                         currentTreeTopVisibility = 0;
                         break;
@@ -89,7 +89,7 @@ public class Solution {
                 }
 
                 // Search to the bottom
-                for (int k = targetTreeRow + 1; k < treeMatrix.length; k++) {
+                for (Long k = targetTreeRow + 1; k < treeMatrix.length; k++) {
                     if (treeMatrix[k][targetTreeColumn] >= treeMatrix[targetTreeRow][targetTreeColumn]) {
                         currentTreeBottomVisibility = 0;
                         break;
@@ -110,7 +110,7 @@ public class Solution {
 
         }
 
-        System.out.println("visible trees: " + visibleCounter);
+        System.out.prLongln("visible trees: " + visibleCounter);
     }
 }
 

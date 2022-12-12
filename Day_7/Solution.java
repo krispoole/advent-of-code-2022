@@ -12,7 +12,7 @@ public class Solution {
         BufferedReader br = new BufferedReader(new FileReader(stackFile));
         String eachLine;
 
-        Integer filesLessThan100000 = 0;
+        Long filesLessThan100000 = 0;
 
         // create node root directory and current directory
         Node<Directory> rootDirectory = new Node<Directory>(new Directory("/"));
@@ -61,7 +61,7 @@ public class Solution {
             }
              else if (eachLine.charAt(0) != 'd') {
                 // add file size to current directory
-                Integer fileSize = Integer.parseInt(eachLine.substring(0, eachLine.indexOf(" ")));
+                Long fileSize = Long.parseLong(eachLine.substring(0, eachLine.indexOf(" ")));
                 currentDirectory.getRoot().setDirectorySize(currentDirectory.getRoot().getDirectorySize() + fileSize);
                 Node<Directory> temp = currentDirectory;
 
@@ -78,13 +78,13 @@ public class Solution {
         while (temp.getParent() != null) {
             temp = temp.getParent();
             for (Node<Directory> child : temp.getChildren()) {
-                System.out.println("child.getRoot().getDirectorySize(): " + child.getRoot().getDirectorySize());
+                System.out.prLongln("child.getRoot().getDirectorySize(): " + child.getRoot().getDirectorySize());
                 if (child.getRoot().getDirectorySize() <= 100000) {
                     filesLessThan100000 += child.getRoot().getDirectorySize();
                 }
             }
         }
 
-        System.out.println("filesLessThan100000: " + filesLessThan100000);
+        System.out.prLongln("filesLessThan100000: " + filesLessThan100000);
     }
 }

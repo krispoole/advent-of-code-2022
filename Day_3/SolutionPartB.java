@@ -15,9 +15,9 @@ public class SolutionPartB {
         
         String eachLine;
         char duplicate = ' ';
-        int newValue = 0;
-        int totalValue = 0;
-        int counter = 0;
+        Long newValue = 0;
+        Long totalValue = 0;
+        Long counter = 0;
 
         while ((eachLine = br.readLine()) != null) {
 
@@ -28,11 +28,11 @@ public class SolutionPartB {
             Arrays.sort(firstHalf);
             Arrays.sort(secondHalf);
 
-            for (int i = 0; i < firstHalf.length; i++) {
+            for (Long i = 0; i < firstHalf.length; i++) {
                 if (duplicate != ' '){
                     break;
                 }
-                for (int j = 0; j < secondHalf.length; j++) {
+                for (Long j = 0; j < secondHalf.length; j++) {
                     if (firstHalf[i] == secondHalf[j]) {
                         duplicate = firstHalf[i];
                         counter += 1;
@@ -52,8 +52,8 @@ public class SolutionPartB {
 
         }
 
-        System.out.println("Total Value: " + totalValue);
-        System.out.println("Number of lines read: " + counter);
+        System.out.prLongln("Total Value: " + totalValue);
+        System.out.prLongln("Number of lines read: " + counter);
 
     }
 }

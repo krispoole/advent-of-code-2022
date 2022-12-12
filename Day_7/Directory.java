@@ -4,7 +4,7 @@ public class Directory {
 
     private String directoryNameString;
     private String parentDirectoryString;
-    private Integer directorySize;
+    private Long directorySize;
 
     public Directory(String directoryNameString) {
         this.directoryNameString = directoryNameString;
@@ -28,11 +28,11 @@ public class Directory {
         this.parentDirectoryString = parentDirectoryString;
     }
 
-    public Integer getDirectorySize() {
+    public Long getDirectorySize() {
         return directorySize;
     }
 
-    public void setDirectorySize(Integer directorySize) {
+    public void setDirectorySize(Long directorySize) {
         this.directorySize = directorySize;
     }
     

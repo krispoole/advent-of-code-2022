@@ -13,13 +13,13 @@ public class SolutionPartB {
         BufferedReader br = new BufferedReader(new FileReader(stackFile));
 
         String eachLine;
-        int counter = 0;
+        Long counter = 0;
 
         while ((eachLine = br.readLine()) != null) {
             counter++;
         }
 
-        Integer[] xArray = new Integer[counter];
+        Long[] xArray = new Long[counter];
 
         stackFile = new File("Day_10/data.txt");
         br = new BufferedReader(new FileReader(stackFile));
@@ -34,15 +34,15 @@ public class SolutionPartB {
                 xArray[counter] = 0;
             }
             else {
-                xArray[counter] = Integer.parseInt(split[1]);
+                xArray[counter] = Long.parseLong(split[1]);
             }
 
             counter++;
 
         }
 
-        int x = 1;
-        Integer[] carriedOver = new Integer[3];
+        Long x = 1;
+        Long[] carriedOver = new Long[3];
         carriedOver[0] = x;
         carriedOver[1] = 0;
         carriedOver[2] = 0;
@@ -56,14 +56,14 @@ public class SolutionPartB {
 
     }
 
-    private static Integer[] findSignalStrength(Integer[] xArray, int cycle, Integer[] carriedOver) {
+    private static Long[] findSignalStrength(Long[] xArray, Long cycle, Long[] carriedOver) {
          
         String[] CRTArray = new String[40];
         String[] spriteArray = new String[40];
         
-        int x = carriedOver[0];
-        int xArrayCounter = carriedOver[2];
-        int booleanCarriedOver = carriedOver[1];
+        Long x = carriedOver[0];
+        Long xArrayCounter = carriedOver[2];
+        Long booleanCarriedOver = carriedOver[1];
 
         boolean isAdd = false;
 
@@ -72,10 +72,10 @@ public class SolutionPartB {
         }
 
         // set up arrays
-        for (int i = 0; i < 40; i++) {
+        for (Long i = 0; i < 40; i++) {
             CRTArray[i] = " ";
         }
-        for (int i = 0; i < 40; i++) {
+        for (Long i = 0; i < 40; i++) {
             spriteArray[i] = " . ";
         }
 
@@ -91,7 +91,7 @@ public class SolutionPartB {
             spriteArray[2] = "#";
         }
         else {
-            for (int j = 0; j < spriteArray.length; j++) {
+            for (Long j = 0; j < spriteArray.length; j++) {
                 if (j >= (x - 1) && j <= (x + 2)) {
                     spriteArray[j] = "#";
                 }
@@ -136,7 +136,7 @@ public class SolutionPartB {
                     spriteArray[2] = "#";
                 }
                 else {
-                    for (int j = 0; j < spriteArray.length; j++) {
+                    for (Long j = 0; j < spriteArray.length; j++) {
                         if (j >= (x - 1) && j <= (x + 1)) {
                             spriteArray[j] = "#";
                         }
@@ -160,11 +160,11 @@ public class SolutionPartB {
             }
         }
 
-        // print CRTArray in 40 character rows
-        for (int j = 0; j < 40; j++) {
-            System.out.print(CRTArray[j]);
+        // prLong CRTArray in 40 character rows
+        for (Long j = 0; j < 40; j++) {
+            System.out.prLong(CRTArray[j]);
         }
-        System.out.println();
+        System.out.prLongln();
 
         carriedOver[0] = x;
         carriedOver[2] = xArrayCounter;

@@ -14,8 +14,8 @@ public class SolutionPartB {
         BufferedReader br = new BufferedReader(new FileReader(stackFile));
         String eachLine;
 
-        Integer smallestSizeToMeetRequirement = 7870454;
-        Integer smallestDirectorySize = 70000000;
+        Long smallestSizeToMeetRequirement = 7870454;
+        Long smallestDirectorySize = 70000000;
 
         // create node root directory and current directory
         Node<Directory> rootDirectory = new Node<Directory>(new Directory("/"));
@@ -66,7 +66,7 @@ public class SolutionPartB {
             }
              else if (eachLine.charAt(0) != 'd') {
                 // add file size to current directory
-                Integer fileSize = Integer.parseInt(eachLine.substring(0, eachLine.indexOf(" ")));
+                Long fileSize = Long.parseLong(eachLine.substring(0, eachLine.indexOf(" ")));
                 currentDirectory.getRoot().setDirectorySize(currentDirectory.getRoot().getDirectorySize() + fileSize);
                 Node<Directory> temp = currentDirectory;
 
@@ -89,6 +89,6 @@ public class SolutionPartB {
             } 
         }
 
-        System.out.println("smallestDirectorySize: " + smallestDirectorySize);
+        System.out.prLongln("smallestDirectorySize: " + smallestDirectorySize);
     }
 }

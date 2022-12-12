@@ -12,8 +12,8 @@ public class Solution {
         BufferedReader br = new BufferedReader(new FileReader(stackFile));
 
         String eachLine;
-        Integer counter = 4;
-        Integer matchCounter = 1;
+        Long counter = 4;
+        Long matchCounter = 1;
 
         while ((eachLine = br.readLine()) != null) {
 
@@ -27,8 +27,8 @@ public class Solution {
 
                 //search for a match, if there's a math, break out of the loop
 
-                for (int j = 0; j < 4; j++) {
-                    for (int k = 1; k < 4; k++) {
+                for (Long j = 0; j < 4; j++) {
+                    for (Long k = 1; k < 4; k++) {
                         if (j != k) {
                             if (firstFour.charAt(j) == firstFour.charAt(k)) {
                                 matchCounter++;
@@ -40,7 +40,7 @@ public class Solution {
                 }                 
 
             }
-            System.out.println(counter);
+            System.out.prLongln(counter);
 
         }
 

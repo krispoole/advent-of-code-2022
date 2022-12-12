@@ -13,7 +13,7 @@ public class SolutionPartB {
         BufferedReader br = new BufferedReader(new FileReader(file));
         
         String eachLine;
-        int score = 0;
+        Long score = 0;
 
         while ((eachLine = br.readLine()) != null) {
 
@@ -81,6 +81,6 @@ public class SolutionPartB {
 
         }
 
-        System.out.println(score);
+        System.out.prLongln(score);
     }
 }

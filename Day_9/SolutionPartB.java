@@ -19,7 +19,7 @@ public class SolutionPartB {
 
         ArrayList<Knot> knotList = new ArrayList<Knot>();
 
-        for (int i = 0; i < 10; i++) {
+        for (Long i = 0; i < 10; i++) {
             knotList.add(new Knot(0, 0));
         }
 
@@ -33,16 +33,16 @@ public class SolutionPartB {
 
             String[] splitLine = eachLine.split(" ");
             String direction = splitLine[0];
-            int steps = Integer.parseInt(splitLine[1]);
+            Long steps = Long.parseLong(splitLine[1]);
 
-            for (int i = 0; i < steps ; i++) {
+            for (Long i = 0; i < steps ; i++) {
 
                 // move head
                 Knot headKnot = knotList.get(0);
                 headKnot = setNewHeadKnot(headKnot, direction);
                 knotList.set(0, headKnot);
 
-                for (int j = 1; j < 10; j++) {
+                for (Long j = 1; j < 10; j++) {
 
                     // move tail
                     Knot tailKnot = knotList.get(j);
@@ -56,7 +56,7 @@ public class SolutionPartB {
                 
                 boolean arrayCheck = false;
 
-                for (int k = 0; k < tempList.length; k++) {
+                for (Long k = 0; k < tempList.length; k++) {
                     if (tempList[k].equals(tempTailString)) {
                         arrayCheck = true;
                     }
@@ -64,7 +64,7 @@ public class SolutionPartB {
 
                 if (arrayCheck == false) {
                     String[] tempArray = new String[tempList.length + 1];
-                    for (int k = 0; k < tempList.length; k++) {
+                    for (Long k = 0; k < tempList.length; k++) {
                         tempArray[k] = tempList[k];
                     }
                     tempArray[tempList.length] = tempTailString;
@@ -75,22 +75,22 @@ public class SolutionPartB {
             }
         }
 
-        int counter = 0;
+        Long counter = 0;
 
-        for (int i = 0; i < knotList.get(9).getOccupiedArray().length; i++) {
+        for (Long i = 0; i < knotList.get(9).getOccupiedArray().length; i++) {
             counter++;
         }
 
-        System.out.println("Answer: " + counter);
+        System.out.prLongln("Answer: " + counter);
 
     }
 
     private static Knot setTailKnot(Knot tailKnot, Knot headKnot) {
 
-        int headCol = headKnot.getCol();
-        int headRow = headKnot.getRow();
-        int tailCol = tailKnot.getCol();
-        int tailRow = tailKnot.getRow();
+        Long headCol = headKnot.getCol();
+        Long headRow = headKnot.getRow();
+        Long tailCol = tailKnot.getCol();
+        Long tailRow = tailKnot.getRow();
 
         if (headCol - tailCol == 2) {
             if (headRow == tailRow) {
@@ -139,11 +139,11 @@ public class SolutionPartB {
 
         return tailKnot;
     }
-    private static boolean checkIfKnotIsInTailList(Knot tailKnot, ArrayList<Knot> tailVisited) {
+    private static boolean checkIfKnotIsLongailList(Knot tailKnot, ArrayList<Knot> tailVisited) {
 
         boolean knotIsInList = false; 
 
-        for (int i = 0; i < tailVisited.size(); i++) {
+        for (Long i = 0; i < tailVisited.size(); i++) {
             if (tailKnot.getRow() == tailVisited.get(i).getRow() && tailKnot.getCol() == tailVisited.get(i).getCol()) {
                 knotIsInList = true;
             }

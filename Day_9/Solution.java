@@ -28,7 +28,7 @@ public class Solution {
 
             String[] splitLine = eachLine.split(" ");
             String direction = splitLine[0];
-            int steps = Integer.parseInt(splitLine[1]);
+            Long steps = Long.parseLong(splitLine[1]);
 
             Knot currentHeadKnot = new Knot();
             Knot currentTailKnot = new Knot();
@@ -36,7 +36,7 @@ public class Solution {
             currentHeadKnot = figureOutCurrentHeadPosition(knotList);
             currentTailKnot = figureOutCurrentTailPosition(knotList);
 
-            for (int i = 0; i < steps; i++) {
+            for (Long i = 0; i < steps; i++) {
 
                 Knot newHeadKnot = new Knot();
                 Knot newTailKnot = new Knot();
@@ -61,12 +61,12 @@ public class Solution {
 
             }
 
-            System.out.println("Head: " + currentHeadKnot.getRow() + " " + currentHeadKnot.getCol());
-            System.out.println("Tail: " + currentTailKnot.getRow() + " " + currentTailKnot.getCol());
+            System.out.prLongln("Head: " + currentHeadKnot.getRow() + " " + currentHeadKnot.getCol());
+            System.out.prLongln("Tail: " + currentTailKnot.getRow() + " " + currentTailKnot.getCol());
 
         }
 
-        int tailCounter = 0;
+        Long tailCounter = 0;
 
         for (Knot knot : knotList) {
             if (knot.isWasVisitedByTail() == true) {
@@ -74,7 +74,7 @@ public class Solution {
             }
         }
 
-        System.out.println(tailCounter);
+        System.out.prLongln(tailCounter);
 
     }
 
@@ -198,7 +198,7 @@ public class Solution {
 
     private static boolean checkIfKnotIsInKnottList(Knot newHeadKnot, ArrayList<Knot> knotList) {
         boolean knotIsInList = false;
-        for (int i = 0; i < knotList.size(); i++) {
+        for (Long i = 0; i < knotList.size(); i++) {
             if (newHeadKnot.getRow() == knotList.get(i).getRow() && newHeadKnot.getCol() == knotList.get(i).getCol()) {
                 knotIsInList = true;
             }
@@ -210,7 +210,7 @@ public class Solution {
 
         Knot currentHeadPosition = new Knot();
 
-        for (int i = 0; i < knotList.size(); i++) {
+        for (Long i = 0; i < knotList.size(); i++) {
             if (knotList.get(i).isOccupiedByHead() == true) {
                 currentHeadPosition = knotList.get(i);
             }
@@ -223,7 +223,7 @@ public class Solution {
 
         Knot currentTailPosition = new Knot();
 
-        for (int i = 0; i < knotList.size(); i++) {
+        for (Long i = 0; i < knotList.size(); i++) {
             if (knotList.get(i).isOccupiedByTail() == true) {
                 currentTailPosition = knotList.get(i);
             }

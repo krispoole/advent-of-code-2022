@@ -9,8 +9,8 @@ public class SolutionPartB {
     public static void main(String[] args) throws IOException {
 
         String eachLine;
-        int dataCounter = 0;
-        int counter = 0;
+        Long dataCounter = 0;
+        Long counter = 0;
 
         
         File file = new File("C:\\Users\\krisp\\Code\\advent-of-code-2022\\Day_4\\data.txt");
@@ -20,33 +20,33 @@ public class SolutionPartB {
         while ((eachLine = br.readLine()) != null) {
 
             String[] dataArrayString = eachLine.split("[-\\,]");
-            Integer[] dataArrayInt = new Integer[4];
+            Long[] dataArrayLong = new Long[4];
 
-            for (int i = 0; i < dataArrayString.length; i++) {
-                dataArrayInteger[i] = Integer.parseInt(dataArrayString[i]);
+            for (Long i = 0; i < dataArrayString.length; i++) {
+                dataArrayLong[i] = Long.parseLong(dataArrayString[i]);
             }
 
-            if (dataArrayInteger[0] > dataArrayInteger[2]) {
+            if (dataArrayLong[0] > dataArrayLong[2]) {
 
-                Integer[] tempArray = new Integer[2];
+                Long[] tempArray = new Long[2];
 
-                tempArray[0] = dataArrayInteger[2];
-                tempArray[1] = dataArrayInteger[3];
-                dataArrayInteger[2] = dataArrayInteger[0];
-                dataArrayInteger[3] = dataArrayInteger[1];
-                dataArrayInteger[0] = tempArray[0];
-                dataArrayInteger[1] = tempArray[1];
+                tempArray[0] = dataArrayLong[2];
+                tempArray[1] = dataArrayLong[3];
+                dataArrayLong[2] = dataArrayLong[0];
+                dataArrayLong[3] = dataArrayLong[1];
+                dataArrayLong[0] = tempArray[0];
+                dataArrayLong[1] = tempArray[1];
                 
             }
 
-            if (dataArrayInteger[2] <= dataArrayInteger[1]) {
+            if (dataArrayLong[2] <= dataArrayLong[1]) {
                 counter++;
             }
 
             dataCounter++;
         }
 
-        System.out.println("dataCounter: " + dataCounter);
-        System.out.println("counter: " + counter);
+        System.out.prLongln("dataCounter: " + dataCounter);
+        System.out.prLongln("counter: " + counter);
     }
 }

@@ -12,13 +12,18 @@ import java.util.Collections;
 public class SolutionPartB {
     public static void main(String[] args) throws NumberFormatException, IOException {
         
-        File stackFile = new File("Day_11/dataTest.txt");
+        File stackFile = new File("Day_11/data.txt");
 
         ArrayList<Monkey> monkeys = generateMonkeyList(stackFile);
 
-        monkeys = processOneMonkey(monkeys, 20);
+        Long lcm = (long) 1;
+        for (Monkey monkey : monkeys) {
+            lcm *= monkey.getTestDenominator();
+        }
 
-        ArrayList<BigInteger> inspectionCounts = new ArrayList<BigInteger>();
+        monkeys = processOneMonkey(monkeys, 10000, lcm);
+
+        ArrayList<Long> inspectionCounts = new ArrayList<Long>();
 
         for (Monkey monkey : monkeys) {
             inspectionCounts.add(monkey.getInspectionCount());
@@ -27,59 +32,61 @@ public class SolutionPartB {
 
         Collections.sort(inspectionCounts);
 
-        BigInteger mostInspected = inspectionCounts.get(inspectionCounts.size() - 1);
-        BigInteger secondMostInspected = inspectionCounts.get(inspectionCounts.size() - 2);
-        BigInteger answer = mostInspected.multiply(secondMostInspected);
+        Long mostInspected = inspectionCounts.get(inspectionCounts.size() - 1);
+        Long secondMostInspected = inspectionCounts.get(inspectionCounts.size() - 2);
+        Long answer = mostInspected * secondMostInspected;
         System.out.println("Answer: " + answer);
         
     }
 
-    private static ArrayList<Monkey> processOneMonkey(ArrayList<Monkey> monkeys, int rounds) {
+    private static ArrayList<Monkey> processOneMonkey(ArrayList<Monkey> monkeys, int j, Long lcm) {
         
-        for (int k = 1; k <= rounds; k++) {
+        for (int k = 1; k <= j; k++) {
 
-            for (Monkey monkey1 : monkeys) {
-                Monkey monkey = monkeys.get(monkey1.getName());
-                ArrayList<BigInteger> items = monkey.getItems();
+            for (Monkey monkey : monkeys) {
+
+                ArrayList<Long> items = monkey.getItems();
                 String[] operation = monkey.getOperation();
-                BigInteger testDenominator = BigInteger.valueOf(monkey.getTestDenominator());
+                Long testDenominator = Long.valueOf(monkey.getTestDenominator());
                 int ifTrue = monkey.getIfTrue();
                 int ifFalse = monkey.getIfFalse();
-                BigInteger inspectionCount = monkey.getInspectionCount();
+                Long inspectionCount = monkey.getInspectionCount();
                 int itemCounter = 0;
 
-                BigInteger itemsSize = BigInteger.valueOf(items.size());
-                monkey.setInspectionCount(inspectionCount.add(itemsSize));
+                
+                monkey.setInspectionCount(inspectionCount + items.size());
 
 
                 // for each item in items process with operation
 
-                for (BigInteger item : items) {
+                for (Long item : items) {
 
                     switch (operation[1]) {
                         case "+":
-                            int value = Integer.parseInt(operation[2]);
-                            item = item.add(BigInteger.valueOf(value));
+                            item += Long.parseLong(operation[2]);
                             break;
                         case "-":
-                            value = Integer.parseInt(operation[2]);
-                            item = item.subtract(BigInteger.valueOf(value));
+                            item -= Long.parseLong(operation[2]);
                             break;
                         case "*":
                             if ((operation[2]).equals("old")) {
-                                item = item.multiply(item);
+                                item *= item;
                             } 
                             else {
-                                value = Integer.parseInt(operation[2]);
-                                item = item.multiply(BigInteger.valueOf(value));
+                                item *= Long.parseLong(operation[2]);
                             }
                             break;
                         case "/":
-                            value = Integer.parseInt(operation[2]);
-                            item = item.divide(BigInteger.valueOf(value));
+                            item /= Long.parseLong(operation[2]);
                             break;
                         default:
                             break;
+                    }
+
+                    Long tester = item % lcm;
+                    
+                    if (tester != 0) {
+                        item = tester;
                     }
 
                     items.set(itemCounter, item);
@@ -93,16 +100,17 @@ public class SolutionPartB {
                 for (int i = 0; i < items.size(); i++) {
 
                     int toMonkeyNumber;
-                    
-                    if (items.get(i).mod(testDenominator).equals(0)) {
+                    Long item = items.get(i);
+
+                    if (item % testDenominator == 0) {
                         toMonkeyNumber = ifTrue;
                     } else {
                         toMonkeyNumber = ifFalse;
                     }
 
                     Monkey toMonkey = monkeys.get(toMonkeyNumber);
-                    ArrayList<BigInteger> toMonkeyItems = toMonkey.getItems();
-                    
+                    ArrayList<Long> toMonkeyItems = toMonkey.getItems();
+
                     // add item to monkeys.get(toMonkey).getItems()
                     toMonkeyItems.add(items.get(i));
                     toMonkey.setItems(toMonkeyItems);
@@ -111,18 +119,18 @@ public class SolutionPartB {
                     monkeys.set(toMonkeyNumber, toMonkey);
 
                 }
-                ArrayList<BigInteger> emptyItems = new ArrayList<BigInteger>();
+                ArrayList<Long> emptyItems = new ArrayList<Long>();
                 monkeys.get(monkey.getName()).setItems(emptyItems);
                 monkeys.set(monkey.getName(), monkey);
 
             }
-            // System.out.println("********** Round " + k + " **********");
+            // System.out.prLongln("********** Round " + k + " **********");
             // for (Monkey monkey : monkeys) {
-            //     System.out.print("Monkey: " + monkey.getName() + " ");
-            //     for (Integer item : monkey.getItems()) {
-            //         System.out.print(item + " ");
+            //     System.out.prLong("Monkey: " + monkey.getName() + " ");
+            //     for (Long item : monkey.getItems()) {
+            //         System.out.prLong(item + " ");
             //     }
-            //     System.out.println();
+            //     System.out.prLongln();
             // }
         }
 
@@ -152,16 +160,15 @@ public class SolutionPartB {
                 switch (splitLine[0]) {
                     case "Monkey":
                         monkeys.add(new Monkey(counter));
-                        monkeys.get(counter).setInspectionCount(BigInteger.valueOf(0));
+                        monkeys.get(counter).setInspectionCount(Long.valueOf(0));
                         break;
                     case "Starting":
                         String[] startingItemsSplit = eachLine.split(" ");
-                        ArrayList<BigInteger> startingItems = new ArrayList<BigInteger>();
+                        ArrayList<Long> startingItems = new ArrayList<Long>();
 
                         for (int i = 2; i < startingItemsSplit.length; i++) {
                             String item = startingItemsSplit[i].replaceAll(",", "");
-                            Integer intItem = Integer.parseInt(item);
-                            BigInteger newItem = BigInteger.valueOf(intItem);
+                            Long newItem = Long.valueOf(item);
                             startingItems.add(newItem);
                         }
 
@@ -176,7 +183,7 @@ public class SolutionPartB {
                         break;
                     case "Test:":
                         String testDenominator = splitLine[splitLine.length - 1];
-                        monkeys.get(counter).setTestDenominator(Integer.parseInt(testDenominator));
+                        monkeys.get(counter).setTestDenominator(Long.parseLong(testDenominator));
                         break;
                     case "If":
                         if (splitLine[1].equals("true:")) {

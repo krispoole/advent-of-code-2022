@@ -17,59 +17,59 @@ public class Solution {
 
         monkeys = processOneMonkey(monkeys, 20);
 
-        ArrayList<Integer> inspectionCounts = new ArrayList<Integer>();
+        ArrayList<Long> inspectionCounts = new ArrayList<Long>();
 
         for (Monkey monkey : monkeys) {
             inspectionCounts.add(monkey.getInspectionCount());
-            System.out.println("Monkey " + monkey.getName() + ": " + monkey.getInspectionCount());
+            System.out.prLongln("Monkey " + monkey.getName() + ": " + monkey.getInspectionCount());
         }
 
         Collections.sort(inspectionCounts);
 
-        int mostInspected = inspectionCounts.get(inspectionCounts.size() - 1);
-        int secondMostInspected = inspectionCounts.get(inspectionCounts.size() - 2);
-        int answer = mostInspected * secondMostInspected;
-        System.out.println("Answer: " + answer);
+        Long mostInspected = inspectionCounts.get(inspectionCounts.size() - 1);
+        Long secondMostInspected = inspectionCounts.get(inspectionCounts.size() - 2);
+        Long answer = mostInspected * secondMostInspected;
+        System.out.prLongln("Answer: " + answer);
         
     }
 
-    private static ArrayList<Monkey> processOneMonkey(ArrayList<Monkey> monkeys, int rounds) {
+    private static ArrayList<Monkey> processOneMonkey(ArrayList<Monkey> monkeys, Long rounds) {
         
-        for (int k = 1; k <= rounds; k++) {
+        for (Long k = 1; k <= rounds; k++) {
 
             for (Monkey monkey : monkeys) {
-                ArrayList<Integer> items = monkey.getItems();
+                ArrayList<Long> items = monkey.getItems();
                 String[] operation = monkey.getOperation();
-                int testDenominator = monkey.getTestDenominator();
-                int ifTrue = monkey.getIfTrue();
-                int ifFalse = monkey.getIfFalse();
-                int inspectionCount = monkey.getInspectionCount();
-                int itemCounter = 0;
+                Long testDenominator = monkey.getTestDenominator();
+                Long ifTrue = monkey.getIfTrue();
+                Long ifFalse = monkey.getIfFalse();
+                Long inspectionCount = monkey.getInspectionCount();
+                Long itemCounter = 0;
 
                 monkey.setInspectionCount(inspectionCount + items.size());
 
 
                 // for each item in items process with operation
 
-                for (Integer item : items) {
+                for (Long item : items) {
 
                     switch (operation[1]) {
                         case "+":
-                            item += Integer.parseInt(operation[2]);
+                            item += Long.parseLong(operation[2]);
                             break;
                         case "-":
-                            item -= Integer.parseInt(operation[2]);
+                            item -= Long.parseLong(operation[2]);
                             break;
                         case "*":
                             if ((operation[2]).equals("old")) {
                                 item *= item;
                             } 
                             else {
-                                item *= Integer.parseInt(operation[2]);
+                                item *= Long.parseLong(operation[2]);
                             }
                             break;
                         case "/":
-                            item /= Integer.parseInt(operation[2]);
+                            item /= Long.parseLong(operation[2]);
                             break;
                         default:
                             break;
@@ -84,9 +84,9 @@ public class Solution {
 
                 monkey.setItems(items);
 
-                for (int i = 0; i < items.size(); i++) {
+                for (Long i = 0; i < items.size(); i++) {
 
-                    int toMonkeyNumber;
+                    Long toMonkeyNumber;
                     
                     if (items.get(i) % testDenominator == 0) {
                         toMonkeyNumber = ifTrue;
@@ -95,7 +95,7 @@ public class Solution {
                     }
 
                     Monkey toMonkey = monkeys.get(toMonkeyNumber);
-                    ArrayList<Integer> toMonkeyItems = toMonkey.getItems();
+                    ArrayList<Long> toMonkeyItems = toMonkey.getItems();
                     
                     // add item to monkeys.get(toMonkey).getItems()
                     toMonkeyItems.add(items.get(i));
@@ -105,18 +105,18 @@ public class Solution {
                     monkeys.set(toMonkeyNumber, toMonkey);
 
                 }
-                ArrayList<Integer> emptyItems = new ArrayList<Integer>();
+                ArrayList<Long> emptyItems = new ArrayList<Long>();
                 monkeys.get(monkey.getName()).setItems(emptyItems);
                 monkeys.set(monkey.getName(), monkey);
 
             }
-            System.out.println("********** Round " + k + " **********");
+            System.out.prLongln("********** Round " + k + " **********");
             for (Monkey monkey : monkeys) {
-                System.out.print("Monkey: " + monkey.getName() + " ");
-                for (Integer item : monkey.getItems()) {
-                    System.out.print(item + " ");
+                System.out.prLong("Monkey: " + monkey.getName() + " ");
+                for (Long item : monkey.getItems()) {
+                    System.out.prLong(item + " ");
                 }
-                System.out.println();
+                System.out.prLongln();
             }
         }
 
@@ -129,7 +129,7 @@ public class Solution {
         BufferedReader br = new BufferedReader(new FileReader(stackFile));
 
         String eachLine;
-        int counter = 0;
+        Long counter = 0;
 
         ArrayList<Monkey> monkeys = new ArrayList<Monkey>();
 
@@ -149,11 +149,11 @@ public class Solution {
                         break;
                     case "Starting":
                         String[] startingItemsSplit = eachLine.split(" ");
-                        ArrayList<Integer> startingItems = new ArrayList<Integer>();
+                        ArrayList<Long> startingItems = new ArrayList<Long>();
 
-                        for (int i = 2; i < startingItemsSplit.length; i++) {
+                        for (Long i = 2; i < startingItemsSplit.length; i++) {
                             String item = startingItemsSplit[i].replaceAll(",", "");
-                            Integer newItem = Integer.parseInt(item);
+                            Long newItem = Long.parseLong(item);
                             startingItems.add(newItem);
                         }
 
@@ -161,21 +161,21 @@ public class Solution {
                     break;
                     case "Operation:":
                         String[] operation = new String[3];
-                        for (int i = 3; i < splitLine.length; i++) {
+                        for (Long i = 3; i < splitLine.length; i++) {
                             operation[i - 3] = splitLine[i];
                         }
                         monkeys.get(counter).setOperation(operation);
                         break;
                     case "Test:":
                         String testDenominator = splitLine[splitLine.length - 1];
-                        monkeys.get(counter).setTestDenominator(Integer.parseInt(testDenominator));
+                        monkeys.get(counter).setTestDenominator(Long.parseLong(testDenominator));
                         break;
                     case "If":
                         if (splitLine[1].equals("true:")) {
-                            monkeys.get(counter).setIfTrue(Integer.parseInt(splitLine[splitLine.length - 1]));
+                            monkeys.get(counter).setIfTrue(Long.parseLong(splitLine[splitLine.length - 1]));
                         }
                         else if (splitLine[1].equals("false:")) {
-                            monkeys.get(counter).setIfFalse(Integer.parseInt(splitLine[splitLine.length - 1]));
+                            monkeys.get(counter).setIfFalse(Long.parseLong(splitLine[splitLine.length - 1]));
                             counter++;
                         }
                         break;

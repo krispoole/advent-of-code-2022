@@ -12,8 +12,8 @@ public class SolutionPartB {
         BufferedReader br = new BufferedReader(new FileReader(stackFile));
 
         String eachLine;
-        Integer counter = 14;
-        Integer matchCounter = 1;
+        Long counter = 14;
+        Long matchCounter = 1;
 
         while ((eachLine = br.readLine()) != null) {
 
@@ -27,8 +27,8 @@ public class SolutionPartB {
 
                 //search for a match, if there's a math, break out of the loop
 
-                for (int j = 0; j < 14; j++) {
-                    for (int k = 1; k < 14; k++) {
+                for (Long j = 0; j < 14; j++) {
+                    for (Long k = 1; k < 14; k++) {
                         if (j != k) {
                             if (firstFourteenString.charAt(j) == firstFourteenString.charAt(k)) {
                                 matchCounter++;
@@ -40,7 +40,7 @@ public class SolutionPartB {
                 }                 
 
             }
-            System.out.println(counter);
+            System.out.prLongln(counter);
 
         }
 

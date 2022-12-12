@@ -2,19 +2,19 @@ package Day_5.main.java.com.entity;
 
 public class Stack {
     
-    private Integer stackNumber;
+    private Long stackNumber;
     private String stackString;
 
-    public Stack(Integer stackNumber, String stackString) {
+    public Stack(Long stackNumber, String stackString) {
         this.stackNumber = stackNumber;
         this.stackString = stackString;
     }
 
-    public Integer getStackNumber() {
+    public Long getStackNumber() {
         return stackNumber;
     }
 
-    public void setStackNumber(Integer stackNumber) {
+    public void setStackNumber(Long stackNumber) {
         this.stackNumber = stackNumber;
     }
 

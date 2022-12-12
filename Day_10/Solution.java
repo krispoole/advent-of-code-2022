@@ -14,13 +14,13 @@ public class Solution {
         BufferedReader br = new BufferedReader(new FileReader(stackFile));
 
         String eachLine;
-        int counter = 0;
+        Long counter = 0;
 
         while ((eachLine = br.readLine()) != null) {
             counter++;
         }
 
-        Integer[] xArray = new Integer[counter];
+        Long[] xArray = new Long[counter];
 
         stackFile = new File("Day_10/data.txt");
         br = new BufferedReader(new FileReader(stackFile));
@@ -35,14 +35,14 @@ public class Solution {
                 xArray[counter] = 0;
             }
             else {
-                xArray[counter] = Integer.parseInt(split[1]);
+                xArray[counter] = Long.parseLong(split[1]);
             }
 
             counter++;
 
         }
 
-        Integer[] signalStrength = new Integer[6];
+        Long[] signalStrength = new Long[6];
 
         signalStrength[0] = findSignalStrength(xArray, 20);
         signalStrength[1] = findSignalStrength(xArray, 60);
@@ -51,19 +51,19 @@ public class Solution {
         signalStrength[4] = findSignalStrength(xArray, 180);
         signalStrength[5] = findSignalStrength(xArray, 220);
 
-        int sum = signalStrength[0] + signalStrength[1] + signalStrength[2] + signalStrength[3] + signalStrength[4] + signalStrength[5];
+        Long sum = signalStrength[0] + signalStrength[1] + signalStrength[2] + signalStrength[3] + signalStrength[4] + signalStrength[5];
         
-        System.out.println("Part 1: " + sum);
+        System.out.prLongln("Part 1: " + sum);
     }
 
-    private static int findSignalStrength(Integer[] xArray, int i) {
-       int cycle = 0;
-       int x = 1;
-       int cyclesNeeded = i;
-       int noopCounter = 0;
-       int addCounter = 0;
+    private static Long findSignalStrength(Long[] xArray, Long i) {
+       Long cycle = 0;
+       Long x = 1;
+       Long cyclesNeeded = i;
+       Long noopCounter = 0;
+       Long addCounter = 0;
 
-       int j = 0;
+       Long j = 0;
        while (cycle < cyclesNeeded) {
 
             if (xArray[j] == 0) {
@@ -92,14 +92,14 @@ public class Solution {
             noopCounter--;
        }
 
-       int linesToAdd = noopCounter + addCounter;
+       Long linesToAdd = noopCounter + addCounter;
 
-       for (int k = 0; k < linesToAdd; k++) {
+       for (Long k = 0; k < linesToAdd; k++) {
            if (xArray[k] != 0) {
                 x = x + xArray[k];
            }
        }
-       int signalStrength = x * i;
+       Long signalStrength = x * i;
        return signalStrength;
     }
  

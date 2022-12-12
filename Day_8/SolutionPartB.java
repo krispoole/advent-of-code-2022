@@ -13,8 +13,8 @@ public class SolutionPartB {
         BufferedReader br = new BufferedReader(new FileReader(stackFile));
 
         String eachLine;
-        int columnCounter = 0;
-        int rowCounter = 0;
+        Long columnCounter = 0;
+        Long rowCounter = 0;
 
         while ((eachLine = br.readLine()) != null) {
 
@@ -26,7 +26,7 @@ public class SolutionPartB {
             rowCounter++;
         }
 
-        Integer[][] treeMatrix = new Integer[rowCounter][columnCounter];
+        Long[][] treeMatrix = new Long[rowCounter][columnCounter];
         rowCounter = 0;
 
         stackFile = new File("C:\\Users\\krisp\\Code\\advent-of-code-2022\\Day_8\\data.txt");
@@ -34,36 +34,36 @@ public class SolutionPartB {
         br = new BufferedReader(new FileReader(stackFile));
 
         while ((eachLine = br.readLine()) != null) {
-            Integer[] newRow = new Integer[columnCounter];
+            Long[] newRow = new Long[columnCounter];
 
-            for (int i = 0; i < eachLine.length(); i++) {
+            for (Long i = 0; i < eachLine.length(); i++) {
                 if (eachLine.charAt(i) != ' ') {
-                    newRow[i] = Integer.parseInt(String.valueOf(eachLine.charAt(i)));
+                    newRow[i] = Long.parseLong(String.valueOf(eachLine.charAt(i)));
                 }
             }
             treeMatrix[rowCounter] = newRow;
             rowCounter++;
         }
 
-        Integer visibleCounter = 0;
+        Long visibleCounter = 0;
         visibleCounter += rowCounter * 2;
         visibleCounter += (columnCounter - 2) * 2;
 
-        Integer topScenicScore = 0;
+        Long topScenicScore = 0;
 
-        for (int i = 1; i < treeMatrix.length - 1; i++) {
-            for (int j = 1; j < treeMatrix[i].length - 1; j++) {
+        for (Long i = 1; i < treeMatrix.length - 1; i++) {
+            for (Long j = 1; j < treeMatrix[i].length - 1; j++) {
                 
-                int currentTreeLeftVisibility = 0;
-                int currentTreeRightVisibility = 0;
-                int currentTreeTopVisibility = 0;
-                int currentTreeBottomVisibility = 0;
+                Long currentTreeLeftVisibility = 0;
+                Long currentTreeRightVisibility = 0;
+                Long currentTreeTopVisibility = 0;
+                Long currentTreeBottomVisibility = 0;
  
-                int targetTreeRow = i;
-                int targetTreeColumn = j;
+                Long targetTreeRow = i;
+                Long targetTreeColumn = j;
 
                 // Search to the left
-                for (int k = targetTreeColumn - 1; k >= 0; k--) {
+                for (Long k = targetTreeColumn - 1; k >= 0; k--) {
                     currentTreeLeftVisibility++;
                     if (treeMatrix[targetTreeRow][k] >= treeMatrix[targetTreeRow][targetTreeColumn]) {
                         break;
@@ -71,7 +71,7 @@ public class SolutionPartB {
                 }
 
                 // Search to the right
-                for (int k = targetTreeColumn + 1; k < treeMatrix.length; k++) {
+                for (Long k = targetTreeColumn + 1; k < treeMatrix.length; k++) {
                     currentTreeRightVisibility++;
                     if (treeMatrix[targetTreeRow][k] >= treeMatrix[targetTreeRow][targetTreeColumn]) {
                         break;
@@ -79,7 +79,7 @@ public class SolutionPartB {
                 }
 
                 // Search to the top
-                for (int k = targetTreeRow - 1; k >= 0; k--) {
+                for (Long k = targetTreeRow - 1; k >= 0; k--) {
                     currentTreeTopVisibility++;
                     if (treeMatrix[k][targetTreeColumn] >= treeMatrix[targetTreeRow][targetTreeColumn]) {
                         break;
@@ -87,14 +87,14 @@ public class SolutionPartB {
                 }
 
                 // Search to the bottom
-                for (int k = targetTreeRow + 1; k < treeMatrix.length; k++) {
+                for (Long k = targetTreeRow + 1; k < treeMatrix.length; k++) {
                     currentTreeBottomVisibility++;
                     if (treeMatrix[k][targetTreeColumn] >= treeMatrix[targetTreeRow][targetTreeColumn]) {
                         break;
                     }
                 }
 
-                Integer currentScenicScore = currentTreeLeftVisibility * currentTreeRightVisibility * currentTreeTopVisibility * currentTreeBottomVisibility;
+                Long currentScenicScore = currentTreeLeftVisibility * currentTreeRightVisibility * currentTreeTopVisibility * currentTreeBottomVisibility;
 
                 if (currentScenicScore > topScenicScore) {
                     topScenicScore = currentScenicScore;
@@ -104,7 +104,7 @@ public class SolutionPartB {
 
         }
 
-        System.out.println("topScenicScore = " + topScenicScore);
+        System.out.prLongln("topScenicScore = " + topScenicScore);
     }
 }
 

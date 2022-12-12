@@ -6,11 +6,11 @@ public class Knot {
     private boolean occupiedByTail;
     private boolean wasVisitedByTail;   
     private boolean[] currentlyOccupiedByTailArray = new boolean[9];
-    private int row;
-    private int col;
+    private Long row;
+    private Long col;
     private String[] occupiedArray;
 
-    public Knot(int row, int col) {
+    public Knot(Long row, Long col) {
         this.row = 0;
         this.col = 0;
         this.occupiedByHead = false;
@@ -42,19 +42,19 @@ public class Knot {
         this.wasVisitedByTail = wasVisitedByTail;
     }
 
-    public int getRow() {
+    public Long getRow() {
         return row;
     }
 
-    public void setRow(int row) {
+    public void setRow(Long row) {
         this.row = row;
     }
 
-    public int getCol() {
+    public Long getCol() {
         return col;
     }
 
-    public void setCol(int col) {
+    public void setCol(Long col) {
         this.col = col;
     }
 
@@ -62,7 +62,7 @@ public class Knot {
         return currentlyOccupiedByTailArray;
     }
 
-    public void setCurrentlyOccupiedByTailArray(int position, boolean value) {
+    public void setCurrentlyOccupiedByTailArray(Long position, boolean value) {
         this.getCurrentlyOccupiedByTailArray()[position] = value;
     }
 
