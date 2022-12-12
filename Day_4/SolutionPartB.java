@@ -20,26 +20,26 @@ public class SolutionPartB {
         while ((eachLine = br.readLine()) != null) {
 
             String[] dataArrayString = eachLine.split("[-\\,]");
-            int[] dataArrayInt = new int[4];
+            Integer[] dataArrayInt = new Integer[4];
 
             for (int i = 0; i < dataArrayString.length; i++) {
-                dataArrayInt[i] = Integer.parseInt(dataArrayString[i]);
+                dataArrayInteger[i] = Integer.parseInt(dataArrayString[i]);
             }
 
-            if (dataArrayInt[0] > dataArrayInt[2]) {
+            if (dataArrayInteger[0] > dataArrayInteger[2]) {
 
-                int[] tempArray = new int[2];
+                Integer[] tempArray = new Integer[2];
 
-                tempArray[0] = dataArrayInt[2];
-                tempArray[1] = dataArrayInt[3];
-                dataArrayInt[2] = dataArrayInt[0];
-                dataArrayInt[3] = dataArrayInt[1];
-                dataArrayInt[0] = tempArray[0];
-                dataArrayInt[1] = tempArray[1];
+                tempArray[0] = dataArrayInteger[2];
+                tempArray[1] = dataArrayInteger[3];
+                dataArrayInteger[2] = dataArrayInteger[0];
+                dataArrayInteger[3] = dataArrayInteger[1];
+                dataArrayInteger[0] = tempArray[0];
+                dataArrayInteger[1] = tempArray[1];
                 
             }
 
-            if (dataArrayInt[2] <= dataArrayInt[1]) {
+            if (dataArrayInteger[2] <= dataArrayInteger[1]) {
                 counter++;
             }
 

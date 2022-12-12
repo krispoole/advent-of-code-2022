@@ -20,17 +20,17 @@ public class Solution {
         while ((eachLine = br.readLine()) != null) {
 
             String[] dataArrayString = eachLine.split("[-\\,]");
-            int[] dataArrayInt = new int[4];
+            Integer[] dataArrayInt = new Integer[4];
 
             for (int i = 0; i < dataArrayString.length; i++) {
-                dataArrayInt[i] = Integer.parseInt(dataArrayString[i]);
+                dataArrayInteger[i] = Integer.parseInt(dataArrayString[i]);
             }
 
-            if (dataArrayInt[0] <= dataArrayInt[2] && dataArrayInt[1] >= dataArrayInt[3]) {
+            if (dataArrayInteger[0] <= dataArrayInteger[2] && dataArrayInteger[1] >= dataArrayInteger[3]) {
                 counter++;
             }
 
-            else if (dataArrayInt[2] <= dataArrayInt[0] && dataArrayInt[3] >= dataArrayInt[1]) {
+            else if (dataArrayInteger[2] <= dataArrayInteger[0] && dataArrayInteger[3] >= dataArrayInteger[1]) {
                 counter++;
             }
 

@@ -26,7 +26,7 @@ public class SolutionPartB {
             rowCounter++;
         }
 
-        int[][] treeMatrix = new int[rowCounter][columnCounter];
+        Integer[][] treeMatrix = new Integer[rowCounter][columnCounter];
         rowCounter = 0;
 
         stackFile = new File("C:\\Users\\krisp\\Code\\advent-of-code-2022\\Day_8\\data.txt");
@@ -34,7 +34,7 @@ public class SolutionPartB {
         br = new BufferedReader(new FileReader(stackFile));
 
         while ((eachLine = br.readLine()) != null) {
-            int[] newRow = new int[columnCounter];
+            Integer[] newRow = new Integer[columnCounter];
 
             for (int i = 0; i < eachLine.length(); i++) {
                 if (eachLine.charAt(i) != ' ') {

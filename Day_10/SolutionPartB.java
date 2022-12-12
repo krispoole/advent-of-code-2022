@@ -19,7 +19,7 @@ public class SolutionPartB {
             counter++;
         }
 
-        int[] xArray = new int[counter];
+        Integer[] xArray = new Integer[counter];
 
         stackFile = new File("Day_10/data.txt");
         br = new BufferedReader(new FileReader(stackFile));
@@ -42,7 +42,7 @@ public class SolutionPartB {
         }
 
         int x = 1;
-        int[] carriedOver = new int[3];
+        Integer[] carriedOver = new Integer[3];
         carriedOver[0] = x;
         carriedOver[1] = 0;
         carriedOver[2] = 0;
@@ -56,7 +56,7 @@ public class SolutionPartB {
 
     }
 
-    private static int[] findSignalStrength(int[] xArray, int cycle, int[] carriedOver) {
+    private static Integer[] findSignalStrength(Integer[] xArray, int cycle, Integer[] carriedOver) {
          
         String[] CRTArray = new String[40];
         String[] spriteArray = new String[40];

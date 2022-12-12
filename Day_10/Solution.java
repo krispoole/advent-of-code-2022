@@ -20,7 +20,7 @@ public class Solution {
             counter++;
         }
 
-        int[] xArray = new int[counter];
+        Integer[] xArray = new Integer[counter];
 
         stackFile = new File("Day_10/data.txt");
         br = new BufferedReader(new FileReader(stackFile));
@@ -42,7 +42,7 @@ public class Solution {
 
         }
 
-        int[] signalStrength = new int[6];
+        Integer[] signalStrength = new Integer[6];
 
         signalStrength[0] = findSignalStrength(xArray, 20);
         signalStrength[1] = findSignalStrength(xArray, 60);
@@ -56,7 +56,7 @@ public class Solution {
         System.out.println("Part 1: " + sum);
     }
 
-    private static int findSignalStrength(int[] xArray, int i) {
+    private static int findSignalStrength(Integer[] xArray, int i) {
        int cycle = 0;
        int x = 1;
        int cyclesNeeded = i;
