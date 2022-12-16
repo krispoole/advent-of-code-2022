@@ -27,6 +27,8 @@ public class Day_14 {
 
         int sandCount = getSandCountToAbyss(rockGrid, coordinateArray);
 
+        printGrid(rockGrid);
+
         System.out.println("Part 1 sandCount: " + sandCount);
    
     }
